@@ -1,0 +1,5 @@
+export * from './HomeRoute'
+export * from './NewMatchRoute'
+export * from './ScoreRoute'
+export * from './ViewRoute'
+export * from './SettingsRoute'
