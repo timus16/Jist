@@ -1,7 +1,9 @@
 import type {
   BallOutcome,
+  Delivery,
   Match,
   Point,
+  ShotEvent,
   ShotSource,
 } from '../types'
 
@@ -9,6 +11,29 @@ import type {
  * Engine contracts. The cricket scoring ENGINE is implemented in Wave 1; these
  * are the shapes it must implement against. Keep changes additive.
  */
+
+export type WicketType =
+  | 'bowled'
+  | 'caught'
+  | 'lbw'
+  | 'stumped'
+  | 'run_out'
+  | 'hit_wicket'
+
+export interface MatchConfig {
+  oversPerInnings: number
+  playersPerSide?: number
+  battingOrder: string[]
+  bowlingOrder: string[]
+  openingBatsmen: [string, string]
+  openingBowler: string
+  matchId?: string
+  matchName?: string
+  teamAId?: string
+  teamBId?: string
+  groundId?: string | null
+  createdAt?: string
+}
 
 export interface DeliveryInput {
   matchId: string
@@ -22,6 +47,8 @@ export interface DeliveryInput {
   landingPoint?: Point | null
   fielderId?: string | null
   source?: ShotSource
+  wicketType?: WicketType | null
+  wicketOn?: 'wide' | 'no_ball' | null
   id?: string
   createdAt?: string
 }
@@ -35,6 +62,7 @@ export interface BatsmanState {
   isStriker: boolean
   isOut: boolean
   howOut: string | null
+  strikeRate?: number
 }
 
 export interface BowlerState {
@@ -46,6 +74,7 @@ export interface BowlerState {
   maidens: number
   wides: number
   noBalls: number
+  economy?: number
 }
 
 export interface Extras {
@@ -72,10 +101,14 @@ export interface InningsState {
   over: number
   ballInOver: number
   completed: boolean
+  target?: number | null
+  deliveries?: Delivery[]
+  shotEvents?: ShotEvent[]
 }
 
 export interface MatchState {
   match: Match
   innings: InningsState[]
   currentInnings: number
+  config?: MatchConfig
 }
