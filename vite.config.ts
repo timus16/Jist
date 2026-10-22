@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  base: '/Jist/',
   plugins: [
     react(),
     tailwindcss(),
@@ -16,8 +17,8 @@ export default defineConfig({
         description: 'Real-time scoring for local sports tournaments',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/',
-        scope: '/',
+        start_url: '/Jist/',
+        scope: '/Jist/',
         theme_color: '#0B1220',
         background_color: '#0B1220',
         icons: [
