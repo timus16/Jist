@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { resolve } from 'path'
 
 export default defineConfig({
   base: '/Jist/',
@@ -47,4 +48,14 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        scorer: resolve(__dirname, 'scorer.html'),
+        viewer: resolve(__dirname, 'viewer.html'),
+        organizer: resolve(__dirname, 'organizer.html'),
+      },
+    },
+  },
 })
