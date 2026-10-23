@@ -116,7 +116,7 @@ body {
 .tabbar {
   flex: 0 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2px;
   padding-bottom: calc(var(--safe-bottom) + 6px);
   padding-left: calc(var(--safe-left) + 6px);

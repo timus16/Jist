@@ -1,50 +1,42 @@
-import { NavLink } from 'react-router-dom'
-import { useMatchStore } from '../../state/matchStore'
+import { NavLink, type NavLinkRenderProps } from 'react-router-dom'
 
 interface TabDef {
   key: string
   label: string
   to: string
   icon: string
-  end?: boolean
 }
 
 export function TabBar() {
-  const matchId = useMatchStore((s) => s.currentMatchId)
-
   const tabs: TabDef[] = [
-    { key: 'matches', label: 'Matches', to: '/', icon: '\u{1F3CF}', end: true },
-    {
-      key: 'score',
-      label: 'Score',
-      to: matchId ? `/match/${matchId}/score` : '/match/new',
-      icon: '\u{1F3AF}',
-    },
-    {
-      key: 'scorecard',
-      label: 'Scorecard',
-      to: matchId ? `/match/${matchId}/view` : '/',
-      icon: '\u{1F4CB}',
-    },
+    { key: 'home', label: 'Home', to: '/', icon: '\u{1F3E0}' },
+    { key: 'new-match', label: 'New Match', to: '/match/new', icon: '\u{2795}' },
     { key: 'settings', label: 'Settings', to: '/settings', icon: '\u{2699}' },
   ]
 
   return (
-    <nav className="tabbar" aria-label="Primary">
+    <nav
+      role="tablist"
+      aria-label="Primary navigation"
+      className="tabbar"
+    >
       {tabs.map((tab) => (
         <NavLink
           key={tab.key}
           to={tab.to}
-          end={tab.end}
-          className={({ isActive }) =>
-            isActive ? 'tabbar__item tabbar__item--active' : 'tabbar__item'
+          role="tab"
+          className={({ isActive }: NavLinkRenderProps) =>
+            `tabbar__item ${isActive ? 'tabbar__item--active' : ''}`
           }
-        >
-          <span aria-hidden className="text-lg leading-none">
-            {tab.icon}
-          </span>
-          <span>{tab.label}</span>
-        </NavLink>
+          children={({ isActive }: NavLinkRenderProps) => (
+            <>
+              <span aria-hidden="true" className="text-lg leading-none">
+                {tab.icon}
+              </span>
+              <span aria-selected={isActive}>{tab.label}</span>
+            </>
+          )}
+        />
       ))}
     </nav>
   )

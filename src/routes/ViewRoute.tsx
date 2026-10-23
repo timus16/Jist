@@ -10,7 +10,7 @@ import type { Ground } from '../domain'
 export function ViewRoute() {
   const { matchId } = useParams()
   const navigate = useNavigate()
-  const { matchState, shotEvents, loading, error, loadMatch } = useScoreStore()
+  const { matchState, deliveries, shotEvents, loading, error, loadMatch } = useScoreStore()
   const [ground, setGround] = useState<Ground | undefined>(undefined)
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export function ViewRoute() {
   return (
     <AppShell title='Scorecard'>
       <div className='flex flex-col gap-4 pb-24'>
-        <LiveScorecard state={matchState} deliveries={[]} />
+        <LiveScorecard state={matchState} deliveries={deliveries} />
 
         <Card className='p-0 overflow-hidden'>
           <FieldMap

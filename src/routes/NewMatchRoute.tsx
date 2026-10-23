@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+﻿import { useState, useEffect } from 'react'
+
 import { AppShell, Button, Card } from '../ui'
 import { useMatchStore } from '../state/matchStore'
 import { groundsRepo } from '../db'
 
 export function NewMatchRoute() {
-  const navigate = useNavigate()
+  
   const createMatch = useMatchStore((s) => s.createMatch)
   const [name, setName] = useState('')
   const [teamA, setTeamA] = useState('')
@@ -39,7 +39,7 @@ export function NewMatchRoute() {
       groundId,
       oversPerInnings: overs,
     }).then((match) => {
-      navigate('/match/' + match.id + '/score')
+      window.location.href = '/Jist/scorer.html#/match/' + match.id + '/score'
     }).catch((err) => {
       setError(err instanceof Error ? err.message : 'Failed to create match')
       setLoading(false)
@@ -120,10 +120,11 @@ export function NewMatchRoute() {
           {error && <p className='text-sm text-red-400'>{error}</p>}
 
           <Button type='submit' size='lg' block disabled={loading}>
-            {loading ? 'Creating…' : 'Create match'}
+            {loading ? 'Creatingâ€¦' : 'Create match'}
           </Button>
         </form>
       </Card>
     </AppShell>
   )
 }
+
